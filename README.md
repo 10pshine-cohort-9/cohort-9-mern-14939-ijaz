@@ -1,6 +1,6 @@
 # Notes App
 
-A production-ready Notes Application built during the 10Pearls Shine MERN Internship.
+A Notes Application under development during the 10Pearls Shine MERN Internship.
 
 ## Tech Stack
 
@@ -24,7 +24,7 @@ A production-ready Notes Application built during the 10Pearls Shine MERN Intern
 
 ## Project Structure
 
-```
+```text
 .
 ├── backend/
 ├── frontend/
