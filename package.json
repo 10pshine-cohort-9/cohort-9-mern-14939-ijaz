@@ -1,0 +1,13 @@
+{
+  "name": "cohort-9-mern-14939-ijaz",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Root workspace config for Git hooks (Husky + lint-staged). Backend and frontend remain independent npm projects.",
+  "scripts": {
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0"
+  }
+}
