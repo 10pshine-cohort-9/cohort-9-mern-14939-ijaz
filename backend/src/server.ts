@@ -3,15 +3,23 @@ import type { Server } from "node:http";
 
 import { app } from "./app.js";
 
-const PORT: number = Number(process.env.PORT) || 3000;
+const PORT: number = process.env.PORT ? Number(process.env.PORT) : 3000;
 
 const server: Server = app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
 
+let isShuttingDown = false;
+
 // Gracefully shut down the HTTP server on termination signals.
 
 function gracefulShutdown(signal: string): void {
+  if (isShuttingDown) {
+    console.log(`${signal} received: shutdown already in progress`);
+    return;
+  }
+  isShuttingDown = true;
+
   console.log(`${signal} received: closing HTTP server gracefully`);
 
   server.close((err) => {
