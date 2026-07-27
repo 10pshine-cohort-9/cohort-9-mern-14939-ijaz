@@ -18,6 +18,7 @@
   --color-text-secondary: #4b5563;
   --color-text-muted: #9ca3af;
   --color-text-inverse: #ffffff;
+  --color-gradient-foreground: #ffffff;
 
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #f9fafb;
@@ -104,6 +105,7 @@
     --color-text-secondary: #d1d5db;
     --color-text-muted: #9ca3af;
     --color-text-inverse: #111827;
+    --color-gradient-foreground: #ffffff;
 
     --color-bg-primary: #111827;
     --color-bg-secondary: #1f2937;
@@ -143,7 +145,7 @@ body {
   background-color: var(--color-bg-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+  text-rendering: optimizelegibility;
 }
 
 #root {
@@ -229,7 +231,7 @@ pre code {
   position: relative;
   padding: var(--space-20) var(--space-6) var(--space-16);
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
-  color: var(--color-text-inverse);
+  color: var(--color-gradient-foreground);
   overflow: hidden;
 }
 
@@ -328,7 +330,7 @@ pre code {
   padding: var(--space-1) var(--space-3);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  color: var(--color-text-inverse);
+  color: var(--color-gradient-foreground);
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: var(--radius-full);
@@ -540,7 +542,7 @@ section h2::after {
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-  color: var(--color-text-inverse);
+  color: var(--color-gradient-foreground);
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
   border-radius: var(--radius-full);

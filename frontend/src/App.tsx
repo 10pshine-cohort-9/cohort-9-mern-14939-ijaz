@@ -1,6 +1,6 @@
 import './App.css'
 
-function App() {
+function App(): React.JSX.Element {
   return (
     <>
       <header className="hero">
@@ -30,16 +30,16 @@ function App() {
             </svg>
             <div className="brand-text">
               <h1>10Pearls Shine</h1>
-              <span className="tagline">MERN Internship</span>
+              <span className="tagline">Internship Program</span>
             </div>
           </div>
           <h2 className="app-title">Notes App</h2>
           <p className="subtitle">
-            A full-stack MERN stack notes application built during the
+            A full-stack notes application built during the
             10Pearls Shine Internship Program
           </p>
           <div className="tech-stack">
-            <span className="tech-badge">MongoDB</span>
+            <span className="tech-badge">PostgreSQL</span>
             <span className="tech-badge">Express.js</span>
             <span className="tech-badge">React</span>
             <span className="tech-badge">Node.js</span>
@@ -141,7 +141,8 @@ function App() {
               <ul>
                 <li>Node.js + Express.js</li>
                 <li>TypeScript</li>
-                <li>MongoDB + Mongoose</li>
+                <li>PostgreSQL + Prisma ORM</li>
+                <li>NeonDB (Serverless Postgres)</li>
                 <li>JWT Authentication</li>
                 <li>bcrypt (Password Hashing)</li>
                 <li>Zod (Validation)</li>
@@ -168,7 +169,7 @@ function App() {
               <span className="step-number">1</span>
               <div>
                 <h3>Clone & Install</h3>
-                <pre><code>{`git clone https://github.com/your-org/notes-app.git
+                <pre><code>{`git clone https://github.com/IjazUllahKhan/cohort-9-mern-14939-ijaz.git
 cd frontend && npm install`}</code></pre>
               </div>
             </div>

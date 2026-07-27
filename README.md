@@ -13,7 +13,7 @@ A Notes Application under development during the 10Pearls Shine MERN Internship.
 - Node.js
 - Express
 - TypeScript
-- PostgreSQL (Planned)
+- PostgreSQL (Implemented via Prisma + NeonDB)
 
 ### Code Quality
 - ESLint

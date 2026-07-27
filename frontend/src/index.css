@@ -34,7 +34,7 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+  text-rendering: optimizelegibility;
 }
 
 /* Remove default list styles for clean slate */
@@ -70,7 +70,7 @@ button {
 
 /* Remove default link underline on focus for better accessibility */
 a:focus-visible {
-  outline: 2px solid currentColor;
+  outline: 2px solid currentcolor;
   outline-offset: 2px;
 }
 
