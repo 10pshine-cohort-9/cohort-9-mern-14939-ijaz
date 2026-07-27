@@ -368,7 +368,7 @@ section h2 {
 section h2::after {
   content: '';
   position: absolute;
-  bottom: -var(--space-3);
+  bottom: calc(-1 * var(--space-3));
   left: 50%;
   transform: translateX(-50%);
   width: 60px;

@@ -34,6 +34,12 @@ A Notes Application under development during the 10Pearls Shine MERN Internship.
 
 ## Development
 
+First, install root dependencies (includes pre-commit tooling):
+
+```bash
+npm install
+```
+
 ### Backend
 
 ```bash
