@@ -11,3 +11,6 @@ coverage
 .DS_Store
 .claude
 docs/implementation-plan.md
+.agents/
+.windsurf/
+skills-lock.json
