@@ -8,6 +8,7 @@
 import { pinoHttp } from "pino-http";
 import { logger } from "../logger/index.js";
 import type { Request, Response } from "express";
+import type { LevelWithSilent } from "pino";
 
 export const requestLoggerMiddleware = pinoHttp({
   logger,
@@ -16,7 +17,7 @@ export const requestLoggerMiddleware = pinoHttp({
     return req.requestId ?? "";
   },
   // Custom log level for successful responses
-  customLogLevel: (req: Request, res: Response): string => {
+  customLogLevel: (_req: Request, res: Response): LevelWithSilent => {
     if (res.statusCode >= 500) return "error";
     if (res.statusCode >= 400) return "warn";
     return "info";
@@ -25,7 +26,8 @@ export const requestLoggerMiddleware = pinoHttp({
   serializers: {
     req: (req: Request) => ({
       method: req.method,
-      url: req.url,
+      // Only log pathname, exclude query parameters and fragments
+      url: new URL(req.url, `http://${req.headers.host}`).pathname,
       headers: {
         "user-agent": req.headers["user-agent"],
         "x-request-id": req.headers["x-request-id"],

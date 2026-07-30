@@ -13,8 +13,15 @@ const pkgPath = join(__dirname, "..", "..", "package.json");
 let version = "1.0.0";
 try {
   const pkgContent = readFileSync(pkgPath, "utf-8");
-  const pkg = JSON.parse(pkgContent);
-  version = pkg.version ?? "1.0.0";
+  const pkgUnknown: unknown = JSON.parse(pkgContent);
+  if (
+    typeof pkgUnknown === "object" &&
+    pkgUnknown !== null &&
+    "version" in pkgUnknown &&
+    typeof (pkgUnknown as { version: unknown }).version === "string"
+  ) {
+    version = (pkgUnknown as { version: string }).version;
+  }
 } catch {
   // Fallback to default version if read fails
 }

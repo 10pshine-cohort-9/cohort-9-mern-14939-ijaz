@@ -44,6 +44,8 @@ npm install
 
 ```bash
 cd backend
+cp .env.example .env
+# Configure DATABASE_URL in .env
 npm install
 npm run dev
 ```

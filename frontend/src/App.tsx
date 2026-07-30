@@ -44,7 +44,7 @@ function App(): React.JSX.Element {
             <span className="tech-badge">React</span>
             <span className="tech-badge">Node.js</span>
             <span className="tech-badge">TypeScript</span>
-            <span className="tech-badge">Tailwind CSS</span>
+            <span className="tech-badge">CSS</span>
           </div>
         </div>
       </header>
@@ -117,7 +117,7 @@ function App(): React.JSX.Element {
                 </svg>
               </div>
               <h3>Responsive UI</h3>
-              <p>Beautiful, accessible UI built with Tailwind CSS</p>
+              <p>Beautiful, accessible UI built with CSS</p>
             </article>
           </div>
         </section>
@@ -130,7 +130,7 @@ function App(): React.JSX.Element {
               <ul>
                 <li>React 19 + TypeScript</li>
                 <li>Vite 8 (Build Tool)</li>
-                <li>Tailwind CSS 4 (Styling)</li>
+                <li>CSS (Custom Properties)</li>
                 <li>React Router 7 (Routing)</li>
                 <li>React Hook Form + Zod (Forms & Validation)</li>
                 <li>Axios (HTTP Client)</li>
@@ -176,9 +176,9 @@ cd frontend && npm install`}</code></pre>
             <div className="step">
               <span className="step-number">2</span>
               <div>
-                <h3>Configure Environment</h3>
-                <pre><code>cp .env.example .env
-# Add your API URLs</code></pre>
+                <h3>Start Backend</h3>
+                <pre><code>{`cd ../backend && npm run dev
+# Runs on http://localhost:3000`}</code></pre>
               </div>
             </div>
             <div className="step">
