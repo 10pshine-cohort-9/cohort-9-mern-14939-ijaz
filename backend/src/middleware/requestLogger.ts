@@ -27,7 +27,7 @@ export const requestLoggerMiddleware = pinoHttp({
     req: (req: Request) => ({
       method: req.method,
       // Only log pathname, exclude query parameters and fragments
-      url: new URL(req.url, `http://${req.headers.host}`).pathname,
+      url: req.path,
       headers: {
         "user-agent": req.headers["user-agent"],
         "x-request-id": req.headers["x-request-id"],

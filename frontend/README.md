@@ -48,7 +48,7 @@ npm run typecheck # TypeScript compile check
 
 ## Project Structure
 
-```
+```text
 frontend/
 ├── src/
 │   ├── components/     # Reusable UI components
