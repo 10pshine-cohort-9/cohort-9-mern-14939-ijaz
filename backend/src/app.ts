@@ -5,6 +5,8 @@ import helmet from "helmet";
 import { healthRouter } from "./routes/health.route.js";
 import { requestIdMiddleware } from "./middleware/requestId.js";
 import { requestLoggerMiddleware } from "./middleware/requestLogger.js";
+import { notFoundHandler } from "./middleware/notFoundHandler.js";
+import { errorHandler } from "./middleware/errorHandler.js";
 
 const app: Application = express();
 
@@ -17,5 +19,11 @@ app.use(express.json());
 
 // Routes
 app.use("/api/v1", healthRouter);
+
+// 404 handler for undefined routes - must be after all routes
+app.use(notFoundHandler);
+
+// Global error handler - must be last (4-arg middleware)
+app.use(errorHandler);
 
 export { app };
