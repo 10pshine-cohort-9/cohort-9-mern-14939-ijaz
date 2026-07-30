@@ -14,7 +14,7 @@ export default [
 
     languageOptions: {
       parserOptions: {
-        project: "./tsconfig.json",
+        project: ["./tsconfig.json", "./tsconfig.prisma.json"],
       },
     },
 
@@ -25,6 +25,6 @@ export default [
   },
 
   {
-    ignores: ["dist/", "node_modules/", "src/generated/", "prisma.config.ts"],
+    ignores: ["dist/", "node_modules/", "src/generated/"],
   },
 ];

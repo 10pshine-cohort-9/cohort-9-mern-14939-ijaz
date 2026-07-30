@@ -1,4 +1,8 @@
 node_modules
 .env
+.env.local
+.env.production
+.env.test
+!.env.example
 
 /src/generated/prisma
