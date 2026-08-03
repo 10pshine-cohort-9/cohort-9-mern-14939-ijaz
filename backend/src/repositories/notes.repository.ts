@@ -21,3 +21,9 @@ export const fetchNote = async (noteId: string) => {
     where: { id: noteId },
   });
 };
+
+export const deleteNote = async (noteId: string) => {
+  return await prisma.note.delete({
+    where: { id: noteId },
+  });
+};

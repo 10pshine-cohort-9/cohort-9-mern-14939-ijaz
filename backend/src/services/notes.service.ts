@@ -21,3 +21,9 @@ export const fetchSingleNote = async (noteId: string) => {
   logger.info(`fetched Note - ${noteId}`);
   return note;
 };
+
+export const deleteNote = async (noteId: string) => {
+  const note = await noteRepo.deleteNote(noteId);
+  logger.info(`Deleted Note - ${noteId}`);
+  return note;
+};

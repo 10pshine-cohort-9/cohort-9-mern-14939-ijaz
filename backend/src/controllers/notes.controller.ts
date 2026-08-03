@@ -36,3 +36,13 @@ export const handleFetchSingleNote = async (req: Request, res: Response) => {
     data: note,
   });
 };
+
+export const handleDeleteNote = async (req: Request, res: Response) => {
+  const noteId = req.params.id as string;
+  const note = await noteService.deleteNote(noteId);
+  res.sendResponse(200, {
+    success: true,
+    message: "Note deleted Successfully",
+    data: note,
+  });
+};
