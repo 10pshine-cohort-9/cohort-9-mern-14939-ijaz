@@ -1,4 +1,5 @@
 import prisma from "../config/db";
+import { UpdateNoteInput } from "../validators/notes.validator";
 
 export const createNote = async (data: {
   title: string;
@@ -25,5 +26,12 @@ export const fetchNote = async (noteId: string) => {
 export const deleteNote = async (noteId: string) => {
   return await prisma.note.delete({
     where: { id: noteId },
+  });
+};
+
+export const updateNote = async (noteId: string, data: UpdateNoteInput) => {
+  return await prisma.note.update({
+    where: { id: noteId },
+    data,
   });
 };

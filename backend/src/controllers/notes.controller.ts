@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
-import { CreateNoteInput } from "../validators/notes.validator";
+import {
+  CreateNoteInput,
+  UpdateNoteInput,
+} from "../validators/notes.validator";
 import * as noteService from "../services/notes.service";
 
 export const handleCreateNote = async (
@@ -43,6 +46,20 @@ export const handleDeleteNote = async (req: Request, res: Response) => {
   res.sendResponse(200, {
     success: true,
     message: "Note deleted Successfully",
+    data: note,
+  });
+};
+
+export const handleUpdateNote = async (
+  req: Request<{ id: string }, {}, UpdateNoteInput>,
+  res: Response,
+) => {
+  const noteId = req.params.id;
+  const data = req.body;
+  const note = await noteService.updateNode(noteId, data);
+  res.sendResponse(200, {
+    success: true,
+    meassage: "Note Updated Successfully",
     data: note,
   });
 };

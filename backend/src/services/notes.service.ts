@@ -1,5 +1,6 @@
 import * as noteRepo from "../repositories/notes.repository";
 import logger from "../utils/logger";
+import { UpdateNoteInput } from "../validators/notes.validator";
 export const createNote = async (data: {
   title: string;
   content: string;
@@ -25,5 +26,11 @@ export const fetchSingleNote = async (noteId: string) => {
 export const deleteNote = async (noteId: string) => {
   const note = await noteRepo.deleteNote(noteId);
   logger.info(`Deleted Note - ${noteId}`);
+  return note;
+};
+
+export const updateNode = async (noteId: string, data: UpdateNoteInput) => {
+  const note = await noteRepo.updateNote(noteId, data);
+  logger.info(`Updated Note - ${noteId}`);
   return note;
 };
