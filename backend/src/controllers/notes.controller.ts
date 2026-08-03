@@ -17,3 +17,12 @@ export const handleCreateNote = async (
     data: createdNote,
   });
 };
+
+export const handleFetchNotes = async (req: Request, res: Response) => {
+  const notes = await noteService.fetchNotes(req.user?.id as string);
+  res.sendResponse(200, {
+    success: true,
+    message: "Notes fetched successfully",
+    data: notes,
+  });
+};

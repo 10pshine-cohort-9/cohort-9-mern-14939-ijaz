@@ -9,3 +9,9 @@ export const createNote = async (data: {
   logger.info(`Note created with ID: ${createdNote.id}`);
   return createdNote;
 };
+
+export const fetchNotes = async (userId: string) => {
+  const notes = await noteRepo.fetchNotesByUserId(userId);
+  logger.info(`Fetched ${notes.length} notes for user ID: ${userId}`);
+  return notes;
+};

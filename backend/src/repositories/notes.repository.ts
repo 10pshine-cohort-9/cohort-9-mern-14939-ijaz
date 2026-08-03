@@ -9,3 +9,9 @@ export const createNote = async (data: {
     data,
   });
 };
+
+export const fetchNotesByUserId = async (userId: string) => {
+  return await prisma.note.findMany({
+    where: { userId },
+  });
+};
