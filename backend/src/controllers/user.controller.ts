@@ -5,7 +5,7 @@ import {
   RegisterUserInput,
 } from "../validators/user.validator";
 
-export const register = async (
+export const handleUserregister = async (
   req: Request<{}, {}, RegisterUserInput>,
   res: Response,
 ) => {
@@ -17,7 +17,7 @@ export const register = async (
   });
 };
 
-export const login = async (
+export const handleUserLogin = async (
   req: Request<{}, {}, LoginUserInput>,
   res: Response,
 ) => {
