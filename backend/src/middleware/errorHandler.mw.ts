@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import logger from "../utils/logger";
 import { AppError } from "../utils/error";
+import { Prisma } from "../generated/prisma";
 
 export const errorHandlerMiddleware = (
   err: unknown,
@@ -17,6 +18,13 @@ export const errorHandlerMiddleware = (
     message = err.message;
     details = err.details;
     logger.warn({ statusCode, message, details }, "Client Request Warning");
+  } else if (err instanceof Prisma.PrismaClientKnownRequestError) {
+    logger.error(
+      { errorCode: err.code, meta: err.meta },
+      "Prisma known request error occurred",
+    );
+  } else if (err instanceof Prisma.PrismaClientInitializationError) {
+    logger.fatal({ message: err.message }, "Failed to connect to the database");
   } else {
     const errorMessage = err instanceof Error ? err.message : String(err);
     const errorStack = err instanceof Error ? err.stack : undefined;
@@ -25,7 +33,7 @@ export const errorHandlerMiddleware = (
       "Unhandled Server Exception",
     );
   }
-  res.sendResponse(statusCode, {
+  return res.sendResponse(statusCode, {
     success: false,
     error: message,
     details: details ? details : undefined,
