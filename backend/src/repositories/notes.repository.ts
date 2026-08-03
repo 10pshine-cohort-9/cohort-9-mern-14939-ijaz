@@ -15,3 +15,9 @@ export const fetchNotesByUserId = async (userId: string) => {
     where: { userId },
   });
 };
+
+export const fetchNote = async (noteId: string) => {
+  return await prisma.note.findUnique({
+    where: { id: noteId },
+  });
+};

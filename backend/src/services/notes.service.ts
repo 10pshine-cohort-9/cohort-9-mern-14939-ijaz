@@ -15,3 +15,9 @@ export const fetchNotes = async (userId: string) => {
   logger.info(`Fetched ${notes.length} notes for user ID: ${userId}`);
   return notes;
 };
+
+export const fetchSingleNote = async (noteId: string) => {
+  const note = await noteRepo.fetchNote(noteId);
+  logger.info(`fetched Note - ${noteId}`);
+  return note;
+};

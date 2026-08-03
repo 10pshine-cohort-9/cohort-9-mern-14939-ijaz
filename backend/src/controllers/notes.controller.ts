@@ -26,3 +26,13 @@ export const handleFetchNotes = async (req: Request, res: Response) => {
     data: notes,
   });
 };
+
+export const handleFetchSingleNote = async (req: Request, res: Response) => {
+  const NoteId = req.params.id as string;
+  const note = await noteService.fetchSingleNote(NoteId);
+  res.sendResponse(200, {
+    success: true,
+    message: "Note fetch Successfully",
+    data: note,
+  });
+};
