@@ -1,8 +1,8 @@
-import app from "./app";
 import "dotenv/config";
-import logger from "./config/logger";
+import app from "./app";
+import logger from "./utils/logger";
 
-const PORT = process.env.PORT || 3000;
+const PORT: number = process.env.PORT ? Number(process.env.PORT) : 3000;
 
 const server = app.listen(PORT, () => {
   logger.info(`Server is running on port ${PORT}`);
@@ -24,6 +24,12 @@ function gracefulShutdown(signal: string) {
 
   logger.info(`${signal} received: closing HTTP server gracefully`);
 
+  const forceExitTimer = setTimeout(() => {
+    logger.error("Forcing shutdown after timeout");
+    process.exit(1);
+  }, 10000);
+  forceExitTimer.unref();
+
   server.close((err) => {
     if (err) {
       logger.error({ err }, "Error during server close");
@@ -31,14 +37,10 @@ function gracefulShutdown(signal: string) {
       return;
     }
 
+    clearTimeout(forceExitTimer);
     logger.info("HTTP server closed. Exiting process.");
     process.exitCode = 0;
   });
-
-  setTimeout(() => {
-    logger.error("Forcing shutdown after timeout");
-    process.exit(1);
-  }, 10000).unref();
 }
 
 process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));

@@ -12,7 +12,7 @@ model User {
   id           String   @id @default(cuid())
   email        String   @unique
   passwordHash String
-  name         String
+  username         String
   notes        Note[]
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
