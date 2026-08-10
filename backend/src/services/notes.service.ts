@@ -1,6 +1,8 @@
 import * as noteRepo from "../repositories/notes.repository";
 import logger from "../utils/logger";
 import { UpdateNoteInput } from "../validators/notes.validator";
+import { AppError } from "../utils/error";
+
 export const createNote = async (data: {
   title: string;
   content: string;
@@ -17,20 +19,44 @@ export const fetchNotes = async (userId: string) => {
   return notes;
 };
 
-export const fetchSingleNote = async (noteId: string) => {
+export const fetchSingleNote = async (noteId: string, userId: string) => {
   const note = await noteRepo.fetchNote(noteId);
+  if (!note) {
+    throw new AppError(404, "Note not found");
+  }
+  if (note.userId !== userId) {
+    throw new AppError(403, "You do not have access to this note");
+  }
   logger.info(`fetched Note - ${noteId}`);
   return note;
 };
 
-export const deleteNote = async (noteId: string) => {
-  const note = await noteRepo.deleteNote(noteId);
+export const deleteNote = async (noteId: string, userId: string) => {
+  const note = await noteRepo.fetchNote(noteId);
+  if (!note) {
+    throw new AppError(404, "Note not found");
+  }
+  if (note.userId !== userId) {
+    throw new AppError(403, "You do not have access to this note");
+  }
+  const deletedNote = await noteRepo.deleteNote(noteId);
   logger.info(`Deleted Note - ${noteId}`);
-  return note;
+  return deletedNote;
 };
 
-export const updateNode = async (noteId: string, data: UpdateNoteInput) => {
-  const note = await noteRepo.updateNote(noteId, data);
+export const updateNote = async (
+  noteId: string,
+  data: UpdateNoteInput,
+  userId: string,
+) => {
+  const note = await noteRepo.fetchNote(noteId);
+  if (!note) {
+    throw new AppError(404, "Note not found");
+  }
+  if (note.userId !== userId) {
+    throw new AppError(403, "You do not have access to this note");
+  }
+  const updatedNote = await noteRepo.updateNote(noteId, data);
   logger.info(`Updated Note - ${noteId}`);
-  return note;
+  return updatedNote;
 };

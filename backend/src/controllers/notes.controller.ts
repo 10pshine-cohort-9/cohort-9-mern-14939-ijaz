@@ -31,8 +31,8 @@ export const handleFetchNotes = async (req: Request, res: Response) => {
 };
 
 export const handleFetchSingleNote = async (req: Request, res: Response) => {
-  const NoteId = req.params.id as string;
-  const note = await noteService.fetchSingleNote(NoteId);
+  const noteId = req.params.id as string;
+  const note = await noteService.fetchSingleNote(noteId, req.user!.id);
   res.sendResponse(200, {
     success: true,
     message: "Note fetch Successfully",
@@ -42,7 +42,7 @@ export const handleFetchSingleNote = async (req: Request, res: Response) => {
 
 export const handleDeleteNote = async (req: Request, res: Response) => {
   const noteId = req.params.id as string;
-  const note = await noteService.deleteNote(noteId);
+  const note = await noteService.deleteNote(noteId, req.user!.id);
   res.sendResponse(200, {
     success: true,
     message: "Note deleted Successfully",
@@ -56,7 +56,7 @@ export const handleUpdateNote = async (
 ) => {
   const noteId = req.params.id;
   const data = req.body;
-  const note = await noteService.updateNode(noteId, data);
+  const note = await noteService.updateNote(noteId, data, req.user!.id);
   res.sendResponse(200, {
     success: true,
     meassage: "Note Updated Successfully",
