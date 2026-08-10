@@ -21,7 +21,7 @@ const handleError = (err: unknown, res: Response): void => {
 export const handleCreateNote = async (
   req: Request<{}, {}, CreateNoteInput>,
   res: Response,
-) => {
+): Promise<void> => {
   try {
     const createdNote = await noteService.createNote({
       title: req.body.title,
@@ -38,7 +38,7 @@ export const handleCreateNote = async (
   }
 };
 
-export const handleFetchNotes = async (req: Request, res: Response) => {
+export const handleFetchNotes = async (req: Request, res: Response): Promise<void> => {
   try {
     const notes = await noteService.fetchNotes(req.user?.id as string);
     res.sendResponse(200, {
@@ -51,7 +51,7 @@ export const handleFetchNotes = async (req: Request, res: Response) => {
   }
 };
 
-export const handleFetchSingleNote = async (req: Request, res: Response) => {
+export const handleFetchSingleNote = async (req: Request, res: Response): Promise<void> => {
   try {
     const noteId = req.params.id as string;
     const note = await noteService.fetchSingleNote(noteId, req.user!.id);
@@ -65,7 +65,7 @@ export const handleFetchSingleNote = async (req: Request, res: Response) => {
   }
 };
 
-export const handleDeleteNote = async (req: Request, res: Response) => {
+export const handleDeleteNote = async (req: Request, res: Response): Promise<void> => {
   try {
     const noteId = req.params.id as string;
     const note = await noteService.deleteNote(noteId, req.user!.id);
@@ -82,7 +82,7 @@ export const handleDeleteNote = async (req: Request, res: Response) => {
 export const handleUpdateNote = async (
   req: Request<{ id: string }, {}, UpdateNoteInput>,
   res: Response,
-) => {
+): Promise<void> => {
   try {
     const noteId = req.params.id;
     const data = req.body;
