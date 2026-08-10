@@ -40,17 +40,22 @@ export const registerUser = async (input: RegisterUserInput) => {
 };
 
 export const loginUser = async (input: LoginUserInput) => {
-  const user = await findByEmail(input.email);
+  try {
+    const user = await findByEmail(input.email);
 
-  if (!user || !(await bcrypt.compare(input.password, user.passwordHash))) {
-    throw new AppError(401, "Invalid email or password");
+    if (!user || !(await bcrypt.compare(input.password, user.passwordHash))) {
+      throw new AppError(401, "Invalid email or password");
+    }
+
+    const token = signToken(user.id);
+
+    logger.info({ userId: user.id }, "User logged in");
+
+    const { passwordHash, ...userWithoutPassword } = user;
+
+    return { token, user: userWithoutPassword };
+  } catch (err) {
+    if (err instanceof AppError) throw err;
+    throw new AppError(500, "Authentication failed. Please try again later.");
   }
-
-  const token = signToken(user.id);
-
-  logger.info({ userId: user.id }, "User logged in");
-
-  const { passwordHash, ...userWithoutPassword } = user;
-
-  return { token, user: userWithoutPassword };
 };
