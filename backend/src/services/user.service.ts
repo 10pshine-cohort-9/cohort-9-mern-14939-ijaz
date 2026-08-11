@@ -1,9 +1,13 @@
 import { findByEmail, createUser } from "../repositories/user.repository";
 import { AppError } from "../utils/error";
 import logger from "../utils/logger";
-import { RegisterUserInput } from "../validators/user.validator";
+import {
+  LoginUserInput,
+  RegisterUserInput,
+} from "../validators/user.validator";
 import bcrypt from "bcrypt";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
+import { signToken } from "../utils/token";
 
 export const registerUser = async (input: RegisterUserInput) => {
   const existingUser = await findByEmail(input.email);
@@ -22,10 +26,7 @@ export const registerUser = async (input: RegisterUserInput) => {
       username: input.username,
     });
   } catch (err) {
-    if (
-      err instanceof PrismaClientKnownRequestError &&
-      err.code === "P2002"
-    ) {
+    if (err instanceof PrismaClientKnownRequestError && err.code === "P2002") {
       throw new AppError(409, "User with this email already exists");
     }
     throw err;
@@ -36,4 +37,25 @@ export const registerUser = async (input: RegisterUserInput) => {
   const { passwordHash, ...userWithoutPassword } = newUser;
 
   return userWithoutPassword;
+};
+
+export const loginUser = async (input: LoginUserInput) => {
+  try {
+    const user = await findByEmail(input.email);
+
+    if (!user || !(await bcrypt.compare(input.password, user.passwordHash))) {
+      throw new AppError(401, "Invalid email or password");
+    }
+
+    const token = signToken(user.id);
+
+    logger.info({ userId: user.id }, "User logged in");
+
+    const { passwordHash, ...userWithoutPassword } = user;
+
+    return { token, user: userWithoutPassword };
+  } catch (err) {
+    if (err instanceof AppError) throw err;
+    throw new AppError(500, "Authentication failed. Please try again later.");
+  }
 };

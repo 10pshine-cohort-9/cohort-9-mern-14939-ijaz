@@ -1,6 +1,5 @@
 import { ZodType } from "zod";
 import { Request, Response, NextFunction } from "express";
-import logger from "../utils/logger";
 import { AppError } from "../utils/error";
 
 export const validate = (schema: ZodType) => {
@@ -13,7 +12,6 @@ export const validate = (schema: ZodType) => {
           message: issue.message,
         };
       });
-      logger.warn({ detail }, "validation failed");
       return next(new AppError(400, "Validation failed", detail));
     }
 
