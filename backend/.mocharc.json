@@ -1,6 +1,6 @@
 {
   "spec": "src/test/**/*.test.ts",
-  "require": "tsx/cjs",
+  "require": ["dotenv/config", "ts-node/register"],
   "extension": "ts",
   "timeout": 5000
 }
