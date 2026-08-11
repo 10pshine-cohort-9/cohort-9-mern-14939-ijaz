@@ -8,7 +8,6 @@ const router = Router();
 
 router.use("/health", healthRouter);
 router.use("/user", userRouter);
-router.use(authMiddleware);
-router.use("/notes", notesRouter);
+router.use("/notes", authMiddleware, notesRouter);
 
 export default router;
