@@ -1,4 +1,12 @@
-function Button({ variant = "primary", children, ...props }) {
+function Button({
+  variant = "primary",
+  children,
+  ...props
+}: {
+  variant?: string;
+  children: any;
+  [key: string]: any;
+}) {
   const styles =
     variant === "primary"
       ? "bg-moss text-white hover:bg-moss-hover"
