@@ -1,6 +1,6 @@
 function Card({ children }: { children: any }) {
   return (
-    <div className="max-w-md mx-auto bg-white rounded-lg shadow-md border border-sand p-8">
+    <div className="max-w-md sm:max-w-lg lg:max-w-xl mx-auto bg-white rounded-lg shadow-md border border-sand p-6 sm:p-8 lg:p-10">
       {children}
     </div>
   );
