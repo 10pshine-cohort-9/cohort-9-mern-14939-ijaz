@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+@theme {
+  --color-paper: #fbf9f4;
+  --color-ink: #1f2a24;
+  --color-moss: #3f6c51;
+  --color-moss-hover: #2f5540;
+  --color-clay: #b5482a;
+  --color-sand: #e4dfd3;
+  --color-graphite: #5c5850;
+
+  --font-display: "Fraunces", ui-serif, serif;
+  --font-sans: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
