@@ -12,3 +12,8 @@ export async function registerUser(
   });
   return response.data;
 }
+
+export async function loginUser(email: string, password: string) {
+  const response = await client.post("/user/login", { email, password });
+  return response.data;
+}
