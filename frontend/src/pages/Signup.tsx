@@ -1,16 +1,30 @@
 import { useState } from "react";
-import Card from ".././components/Card";
+import Card from "../components/Card";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import { registerUser } from "../api/auth";
+import toast from "react-hot-toast";
 
 function Signup() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log({ username, email, password });
+    setError("");
+    try {
+      await registerUser(username, email, password);
+      toast.success("Account created!");
+    } catch (err: any) {
+      const details = err.response?.data?.details;
+      if (details?.length) {
+        setError(details[0].message);
+      } else {
+        setError(err.response?.data?.error || "Something went wrong");
+      }
+    }
   }
 
   return (
@@ -46,6 +60,7 @@ function Signup() {
               setPassword(e.target.value)
             }
           />
+          {error && <p className="text-sm text-clay">{error}</p>}
           <Button type="submit">Sign up</Button>
         </form>
       </Card>
