@@ -4,6 +4,7 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import { registerUser } from "../api/auth";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 function Signup() {
   const [username, setUsername] = useState("");
@@ -62,6 +63,12 @@ function Signup() {
           />
           {error && <p className="text-sm text-clay">{error}</p>}
           <Button type="submit">Sign up</Button>
+          <p className="text-sm text-graphite mt-2">
+            Already have an account?{" "}
+            <Link to="/login" className="text-moss">
+              Log in
+            </Link>
+          </p>
         </form>
       </Card>
     </div>

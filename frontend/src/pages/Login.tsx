@@ -4,6 +4,7 @@ import Card from "../components/Card";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import { loginUser } from "../api/auth";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -52,6 +53,12 @@ function Login() {
           />
           {error && <p className="text-sm text-clay">{error}</p>}
           <Button type="submit">Log in</Button>
+          <p className="text-sm text-graphite mt-2">
+            Don't have an account?{" "}
+            <Link to="/signup" className="text-moss">
+              Sign up
+            </Link>
+          </p>
         </form>
       </Card>
     </div>
