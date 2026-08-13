@@ -5,8 +5,10 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import { loginUser } from "../api/auth";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -16,8 +18,8 @@ function Login() {
     setError("");
     try {
       const data = await loginUser(email, password);
+      login(data.data.token);
       toast.success("Logged in!");
-      console.log(data);
     } catch (err: any) {
       const details = err.response?.data?.details;
       if (details?.length) {
