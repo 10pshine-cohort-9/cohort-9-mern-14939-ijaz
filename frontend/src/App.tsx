@@ -7,6 +7,10 @@ function App() {
     <Routes>
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
+      <Route
+        path="/dashboard"
+        element={<div className="p-8">Dashboard coming soon</div>}
+      />
       <Route path="/" element={<Navigate to="/login" />} />
     </Routes>
   );

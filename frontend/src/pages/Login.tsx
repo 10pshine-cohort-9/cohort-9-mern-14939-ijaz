@@ -6,8 +6,10 @@ import Button from "../components/Button";
 import { loginUser } from "../api/auth";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,6 +22,7 @@ function Login() {
       const data = await loginUser(email, password);
       login(data.data.token);
       toast.success("Logged in!");
+      navigate("/dashboard");
     } catch (err: any) {
       const details = err.response?.data?.details;
       if (details?.length) {
