@@ -26,3 +26,21 @@ export async function loginUser(email: string, password: string) {
     throw toApiError(err);
   }
 }
+
+export async function getCurrentUser() {
+  try {
+    const response = await client.get("/user/me");
+    return response.data;
+  } catch (err) {
+    throw toApiError(err);
+  }
+}
+
+export async function logoutUser() {
+  try {
+    const response = await client.post("/user/logout");
+    return response.data;
+  } catch (err) {
+    throw toApiError(err);
+  }
+}

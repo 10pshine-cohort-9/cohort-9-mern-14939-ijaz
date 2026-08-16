@@ -21,7 +21,7 @@ function Login() {
     setError("");
     try {
       const data = await loginUser(email, password);
-      login(data.data.token);
+      login(data.data.user);
       toast.success("Logged in!");
       navigate("/dashboard");
     } catch (err) {
