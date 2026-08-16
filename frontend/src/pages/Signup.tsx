@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import { registerUser } from "../api/auth";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import type { ApiError } from "../api/apiError";
 
 function Signup() {
   const [username, setUsername] = useState("");
@@ -18,12 +19,12 @@ function Signup() {
     try {
       await registerUser(username, email, password);
       toast.success("Account created!");
-    } catch (err: any) {
-      const details = err.response?.data?.details;
-      if (details?.length) {
-        setError(details[0].message);
+    } catch (err) {
+      const apiError = err as ApiError;
+      if (apiError.details?.length) {
+        setError(apiError.details[0].message);
       } else {
-        setError(err.response?.data?.error || "Something went wrong");
+        setError(apiError.message);
       }
     }
   }

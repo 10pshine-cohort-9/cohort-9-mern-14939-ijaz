@@ -7,6 +7,7 @@ import { loginUser } from "../api/auth";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import type { ApiError } from "../api/apiError";
 
 function Login() {
   const navigate = useNavigate();
@@ -23,12 +24,12 @@ function Login() {
       login(data.data.token);
       toast.success("Logged in!");
       navigate("/dashboard");
-    } catch (err: any) {
-      const details = err.response?.data?.details;
-      if (details?.length) {
-        setError(details[0].message);
+    } catch (err) {
+      const apiError = err as ApiError;
+      if (apiError.details?.length) {
+        setError(apiError.details[0].message);
       } else {
-        setError(err.response?.data?.error || "Something went wrong");
+        setError(apiError.message);
       }
     }
   }
