@@ -1,12 +1,12 @@
-function Button({
-  variant = "primary",
-  children,
-  ...props
-}: {
-  variant?: string;
-  children: any;
-  [key: string]: any;
-}) {
+import type { ButtonHTMLAttributes } from "react";
+
+type ButtonVariant = "primary" | "secondary";
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: ButtonVariant;
+}
+
+function Button({ variant = "primary", children, ...props }: ButtonProps) {
   const styles =
     variant === "primary"
       ? "bg-moss text-white hover:bg-moss-hover"
