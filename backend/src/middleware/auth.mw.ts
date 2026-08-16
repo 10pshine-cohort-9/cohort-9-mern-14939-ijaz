@@ -7,12 +7,11 @@ export const authMiddleware = (
   _res: Response,
   next: NextFunction,
 ) => {
-  const header = req.headers.authorization;
-  if (!header?.startsWith("Bearer ")) {
+  const token = req.cookies?.token;
+  if (!token) {
     return next(new AppError(401, "No token provided"));
   }
   try {
-    const token = header.split(" ")[1];
     const decoded = verifyToken(token);
     req.user = { id: decoded.sub };
     next();

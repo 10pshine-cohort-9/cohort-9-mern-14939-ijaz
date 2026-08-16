@@ -4,10 +4,12 @@ import * as userService from "../../services/user.service";
 import {
   handleUserRegister,
   handleUserLogin,
+  handleGetMe,
+  handleUserLogout,
 } from "../../controllers/user.controller";
 
 function makeRes() {
-  return { sendResponse: sinon.spy() } as any;
+  return { sendResponse: sinon.spy(), cookie: sinon.spy(), clearCookie: sinon.spy() } as any;
 }
 
 describe("user.controller", () => {
@@ -29,7 +31,7 @@ describe("user.controller", () => {
     expect(payload.data).to.deep.equal(fakeUser);
   });
 
-  it("handleUserLogin sends 200 with token and user", async () => {
+  it("handleUserLogin sets a token cookie and sends 200 with user only", async () => {
     const fakeResult = {
       token: "jwt.token",
       user: { id: "u1", email: "a@a.com" },
@@ -41,8 +43,41 @@ describe("user.controller", () => {
 
     await handleUserLogin(req, res);
 
+    expect(res.cookie.calledOnce).to.be.true;
+    const [cookieName, cookieValue] = res.cookie.firstCall.args;
+    expect(cookieName).to.equal("token");
+    expect(cookieValue).to.equal("jwt.token");
+
     const [statusCode, payload] = res.sendResponse.firstCall.args;
     expect(statusCode).to.equal(200);
-    expect(payload.data).to.deep.equal(fakeResult);
+    expect(payload.data).to.deep.equal({ user: fakeResult.user });
+  });
+
+  it("handleGetMe sends 200 with current user", async () => {
+    const fakeUser = { id: "u1", email: "a@a.com" };
+    sinon.stub(userService, "getCurrentUser").resolves(fakeUser as any);
+
+    const req = { user: { id: "u1" } } as any;
+    const res = makeRes();
+
+    await handleGetMe(req, res);
+
+    const [statusCode, payload] = res.sendResponse.firstCall.args;
+    expect(statusCode).to.equal(200);
+    expect(payload.data).to.deep.equal({ user: fakeUser });
+  });
+
+  it("handleUserLogout clears the token cookie and sends 200", async () => {
+    const req = {} as any;
+    const res = makeRes();
+
+    await handleUserLogout(req, res);
+
+    expect(res.clearCookie.calledOnce).to.be.true;
+    expect(res.clearCookie.firstCall.args[0]).to.equal("token");
+
+    const [statusCode, payload] = res.sendResponse.firstCall.args;
+    expect(statusCode).to.equal(200);
+    expect(payload.success).to.be.true;
   });
 });
