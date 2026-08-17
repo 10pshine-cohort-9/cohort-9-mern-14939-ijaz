@@ -6,6 +6,12 @@ export async function findByEmail(email: string) {
   });
 }
 
+export async function findById(id: string) {
+  return prisma.user.findUnique({
+    where: { id },
+  });
+}
+
 export async function createUser(data: {
   email: string;
   passwordHash: string;

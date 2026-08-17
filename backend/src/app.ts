@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
+import cookieParser from "cookie-parser";
 import AppRouter from "./routes/index";
 import responseMiddleware from "./middleware/response.mw";
 import loggerMiddleware from "./middleware/logger.mw";
@@ -10,9 +11,15 @@ import { AppError } from "./utils/error";
 const app = express();
 
 app.use(helmet());
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  }),
+);
 app.use(responseMiddleware);
 app.use(express.json());
+app.use(cookieParser());
 app.use(loggerMiddleware);
 
 app.use("/api", AppRouter);

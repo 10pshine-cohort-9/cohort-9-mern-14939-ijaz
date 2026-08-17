@@ -1,4 +1,8 @@
-import { findByEmail, createUser } from "../repositories/user.repository";
+import {
+  findByEmail,
+  findById,
+  createUser,
+} from "../repositories/user.repository";
 import { AppError } from "../utils/error";
 import logger from "../utils/logger";
 import {
@@ -58,4 +62,16 @@ export const loginUser = async (input: LoginUserInput) => {
     if (err instanceof AppError) throw err;
     throw new AppError(500, "Authentication failed. Please try again later.");
   }
+};
+
+export const getCurrentUser = async (userId: string) => {
+  const user = await findById(userId);
+
+  if (!user) {
+    throw new AppError(404, "User not found");
+  }
+
+  const { passwordHash, ...userWithoutPassword } = user;
+
+  return userWithoutPassword;
 };
