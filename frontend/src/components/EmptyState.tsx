@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Button from "./Button";
 
 function EmptyState() {
   return (
@@ -8,8 +7,11 @@ function EmptyState() {
       <p className="text-graphite mb-6">
         Start writing down your first thought.
       </p>
-      <Link to="/notes/new">
-        <Button>Create your first note</Button>
+      <Link
+        to="/notes/new"
+        className="inline-block px-4 py-2 rounded-md font-medium bg-moss text-white hover:bg-moss-hover"
+      >
+        Create your first note
       </Link>
     </div>
   );

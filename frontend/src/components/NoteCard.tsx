@@ -1,10 +1,5 @@
 import { Link } from "react-router-dom";
-
-type Note = {
-  id: string;
-  title: string;
-  content: string;
-};
+import { type Note } from "../api/notes";
 
 function NoteCard({ note }: { note: Note }) {
   return (
