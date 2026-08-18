@@ -9,7 +9,7 @@ function EmptyState() {
       </p>
       <Link
         to="/notes/new"
-        className="inline-block px-4 py-2 rounded-md font-medium bg-moss text-white hover:bg-moss-hover"
+        className="inline-block px-4 py-2 rounded-md font-medium cursor-pointer transition-colors bg-moss text-white hover:bg-moss-hover"
       >
         Create your first note
       </Link>

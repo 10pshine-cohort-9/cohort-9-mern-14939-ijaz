@@ -8,7 +8,7 @@ import { useAuth } from "../context/AuthContext";
 import type { ApiError } from "../api/apiError";
 
 const linkButtonStyles =
-  "inline-block px-4 py-2 rounded-md font-medium bg-moss text-white hover:bg-moss-hover";
+  "inline-block px-4 py-2 rounded-md font-medium cursor-pointer transition-colors bg-moss text-white hover:bg-moss-hover";
 
 function Dashboard() {
   const { logout } = useAuth();
@@ -61,7 +61,13 @@ function Dashboard() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {notes.map((note) => (
-            <NoteCard key={note.id} note={note} />
+            <NoteCard
+              key={note.id}
+              note={note}
+              onDelete={(id) =>
+                setNotes((prev) => prev.filter((n) => n.id !== id))
+              }
+            />
           ))}
         </div>
       )}
