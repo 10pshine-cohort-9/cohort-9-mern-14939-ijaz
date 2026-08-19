@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -12,7 +13,23 @@ function App() {
         path="/dashboard"
         element={
           <ProtectedRoute>
-            <div className="p-8">Dashboard coming soon</div>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/notes/new"
+        element={
+          <ProtectedRoute>
+            <div className="p-8">Note editor coming soon</div>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/notes/:id"
+        element={
+          <ProtectedRoute>
+            <div className="p-8">Note editor coming soon</div>
           </ProtectedRoute>
         }
       />
