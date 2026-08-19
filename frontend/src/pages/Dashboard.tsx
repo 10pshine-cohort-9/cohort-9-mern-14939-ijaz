@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Plus, User, LogOut } from "lucide-react";
+import { Plus, LogOut } from "lucide-react";
 import { fetchNotes, type Note } from "../api/notes";
 import NoteCard from "../components/NoteCard";
 import EmptyState from "../components/EmptyState";
@@ -11,14 +11,11 @@ import type { ApiError } from "../api/apiError";
 const newNoteStyles =
   "inline-flex items-center gap-2 px-4 py-2 rounded-md font-medium cursor-pointer transition-colors bg-moss text-white hover:bg-moss-hover";
 
-const logoutButtonStyles =
-  "inline-flex items-center gap-2 px-4 py-2 rounded-md font-medium cursor-pointer transition-colors text-ink/70 hover:text-clay hover:bg-clay/5";
-
 const profileLinkStyles =
   "inline-flex items-center gap-2 px-4 py-2 rounded-md font-medium cursor-pointer transition-colors bg-white border border-sand text-ink hover:bg-sand";
 
 function Dashboard() {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const [notes, setNotes] = useState<Note[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -59,16 +56,16 @@ function Dashboard() {
             New note
           </Link>
           <Link to="/profile" className={profileLinkStyles}>
-            <User size={16} />
+            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-moss text-white text-xs font-semibold leading-none shrink-0">
+              {user?.username?.[0]?.toUpperCase() ?? "?"}
+            </span>
             Profile
           </Link>
-          <Button
-            variant="secondary"
-            onClick={logout}
-            className={logoutButtonStyles}
-          >
-            <LogOut size={16} />
-            Log out
+          <Button variant="ghost" onClick={logout}>
+            <span className="inline-flex items-center gap-2">
+              <LogOut size={16} />
+              Log out
+            </span>
           </Button>
         </div>
       </div>
