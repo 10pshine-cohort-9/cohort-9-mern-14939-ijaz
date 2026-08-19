@@ -8,11 +8,14 @@ type NoteCardProps = {
   onDelete: (id: string) => void;
 };
 
-function NoteCard({ note, onDelete }: NoteCardProps) {
-  async function handleDelete(e: React.MouseEvent) {
-    e.preventDefault();
-    e.stopPropagation();
+function stripHtml(html: string): string {
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  return div.textContent || "";
+}
 
+function NoteCard({ note, onDelete }: NoteCardProps) {
+  async function handleDelete() {
     const confirmed = window.confirm("Delete this note? This can't be undone.");
     if (!confirmed) return;
 
@@ -26,19 +29,22 @@ function NoteCard({ note, onDelete }: NoteCardProps) {
   }
 
   return (
-    <Link
-      to={`/notes/${note.id}`}
-      className="relative block bg-white rounded-lg shadow-md border border-sand p-5 hover:shadow-lg transition-shadow"
-    >
+    <div className="relative bg-white rounded-lg shadow-md border border-sand p-5 hover:shadow-lg transition-shadow">
       <button
         onClick={handleDelete}
-        className="absolute top-3 right-3 text-sm text-clay hover:underline"
+        className="absolute top-3 right-3 text-sm text-clay hover:underline cursor-pointer"
       >
         Delete
       </button>
-      <h3 className="font-display text-lg mb-2 truncate pr-12">{note.title}</h3>
-      <p className="text-sm text-graphite line-clamp-3">{note.content}</p>
-    </Link>
+      <Link to={`/notes/${note.id}`} className="block">
+        <h3 className="font-display text-lg mb-2 truncate pr-12">
+          {note.title}
+        </h3>
+        <p className="text-sm text-graphite line-clamp-3">
+          {stripHtml(note.content)}
+        </p>
+      </Link>
+    </div>
   );
 }
 

@@ -20,13 +20,28 @@ function NoteEditor() {
 
   useEffect(() => {
     if (!id) return;
+
+    let active = true;
+    setLoading(true);
+
     fetchSingleNote(id)
       .then((res) => {
+        if (!active) return;
         setTitle(res.data.title);
         setContent(res.data.content);
       })
-      .catch((err) => setError((err as ApiError).message))
-      .finally(() => setLoading(false));
+      .catch((err) => {
+        if (!active) return;
+        setError((err as ApiError).message);
+      })
+      .finally(() => {
+        if (!active) return;
+        setLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
   }, [id]);
 
   async function handleSave() {

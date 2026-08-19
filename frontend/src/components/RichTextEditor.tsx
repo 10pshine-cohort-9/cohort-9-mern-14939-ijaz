@@ -14,6 +14,11 @@ function RichTextEditor({ content, onChange }: RichTextEditorProps) {
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
     },
+    editorProps: {
+      attributes: {
+        class: "outline-none min-h-[260px] leading-relaxed",
+      },
+    },
   });
 
   useEffect(() => {
