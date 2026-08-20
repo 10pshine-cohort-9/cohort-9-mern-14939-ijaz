@@ -3,6 +3,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./pages/Dashboard";
+import NoteEditor from "./pages/NoteEditor";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
         path="/notes/new"
         element={
           <ProtectedRoute>
-            <div className="p-8">Note editor coming soon</div>
+            <NoteEditor />
           </ProtectedRoute>
         }
       />
@@ -29,7 +30,7 @@ function App() {
         path="/notes/:id"
         element={
           <ProtectedRoute>
-            <div className="p-8">Note editor coming soon</div>
+            <NoteEditor />
           </ProtectedRoute>
         }
       />

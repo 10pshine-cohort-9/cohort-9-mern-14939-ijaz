@@ -15,10 +15,12 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
+    setLoading(true);
     try {
       const data = await loginUser(email, password);
       login(data.data.user);
@@ -31,6 +33,8 @@ function Login() {
       } else {
         setError(apiError.message);
       }
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -58,7 +62,9 @@ function Login() {
             }
           />
           {error && <p className="text-sm text-clay">{error}</p>}
-          <Button type="submit">Log in</Button>
+          <Button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Log in"}
+          </Button>
           <p className="text-sm text-graphite mt-2">
             Don't have an account?{" "}
             <Link to="/signup" className="text-moss">
