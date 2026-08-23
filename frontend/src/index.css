@@ -25,3 +25,35 @@ body {
 .ProseMirror p:last-child {
   margin-bottom: 0;
 }
+
+.ProseMirror ul,
+.ProseMirror ol {
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.ProseMirror ul {
+  list-style: disc;
+}
+
+.ProseMirror ol {
+  list-style: decimal;
+}
+
+.ProseMirror li {
+  margin-bottom: 0.25rem;
+}
+
+.ProseMirror h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.ProseMirror blockquote {
+  border-left: 3px solid var(--color-sand);
+  padding-left: 1rem;
+  color: var(--color-graphite);
+  font-style: italic;
+}
