@@ -38,7 +38,7 @@ function Profile() {
       <div className="max-w-2xl flex flex-col gap-6">
         <div className="flex items-center gap-4">
           <span className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-moss text-white text-xl font-semibold leading-none shrink-0">
-            {user.username[0].toUpperCase()}
+            {user.username?.[0]?.toUpperCase() ?? "?"}
           </span>
           <div>
             <p className="font-medium text-xl">{user.username}</p>

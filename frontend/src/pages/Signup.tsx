@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactElement } from "react";
 import Card from "../components/Card";
 import Input from "../components/Input";
 import Button from "../components/Button";
@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import type { ApiError } from "../api/apiError";
 
-function Signup() {
+function Signup(): ReactElement {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -15,7 +15,9 @@ function Signup() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
+  async function handleSubmit(
+    e: React.SyntheticEvent<HTMLFormElement>,
+  ): Promise<void> {
     e.preventDefault();
     setError("");
     setLoading(true);
