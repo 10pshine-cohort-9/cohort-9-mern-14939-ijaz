@@ -13,7 +13,9 @@ function Input({ label, id, error = "", ...props }: InputProps) {
       </label>
       <input
         id={id}
-        className={`px-3 py-2 rounded-md border ${error ? "border-clay" : "border-sand"}`}
+        className={`px-3 py-2 rounded-md border outline-none focus:ring-2 focus:ring-moss transition-shadow ${
+          error ? "border-clay" : "border-sand"
+        }`}
         {...props}
       />
       {error && <span className="text-sm text-clay">{error}</span>}

@@ -74,7 +74,7 @@ function NoteEditor() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Note title"
-          className="w-full font-display text-2xl mb-4 outline-none"
+          className="w-full font-display text-2xl mb-4 outline-none focus:ring-2 focus:ring-moss rounded-md px-1 transition-shadow"
         />
         <RichTextEditor content={content} onChange={setContent} />
         {error && <p className="text-sm text-clay mt-3">{error}</p>}

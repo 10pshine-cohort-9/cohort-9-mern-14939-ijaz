@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./pages/Dashboard";
 import NoteEditor from "./pages/NoteEditor";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -34,6 +35,16 @@ function App() {
           </ProtectedRoute>
         }
       />
+
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
+
       <Route path="/" element={<Navigate to="/login" />} />
     </Routes>
   );
