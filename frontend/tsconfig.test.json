@@ -4,6 +4,7 @@
     "verbatimModuleSyntax": false,
     "module": "CommonJS",
     "jsx": "react-jsx",
-    "types": ["jest", "@testing-library/jest-dom"]
+    "lib": ["es2018", "dom"],
+    "types": ["jest", "@testing-library/jest-dom", "vite/client"]
   }
 }
