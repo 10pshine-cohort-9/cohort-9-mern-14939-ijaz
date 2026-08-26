@@ -1,12 +1,11 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import Card from "../components/Card";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import { loginUser } from "../api/auth";
-import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 import type { ApiError } from "../api/apiError";
 
 function Login() {
