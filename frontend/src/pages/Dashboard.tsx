@@ -59,7 +59,7 @@ function Dashboard() {
             <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-moss text-white text-xs font-semibold leading-none shrink-0">
               {user?.username?.[0]?.toUpperCase() ?? "?"}
             </span>
-            Profile
+            <span>Profile</span>
           </Link>
           <Button variant="ghost" onClick={logout}>
             <span className="inline-flex items-center gap-2">

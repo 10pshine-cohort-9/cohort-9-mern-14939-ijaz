@@ -16,6 +16,7 @@ function Button({ variant = "primary", children, ...props }: ButtonProps) {
 
   return (
     <button
+      type="button"
       className={`px-4 py-2 rounded-md font-medium cursor-pointer transition-colors active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 ${styles}`}
       {...props}
     >

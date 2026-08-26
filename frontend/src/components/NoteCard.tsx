@@ -38,6 +38,7 @@ function NoteCard({ note, onDelete }: NoteCardProps) {
         </p>
       </Link>
       <button
+        type="button"
         onClick={handleDelete}
         className="absolute bottom-3 right-3 flex items-center gap-1 text-sm text-clay hover:underline cursor-pointer opacity-70 hover:opacity-100 transition-opacity"
       >
