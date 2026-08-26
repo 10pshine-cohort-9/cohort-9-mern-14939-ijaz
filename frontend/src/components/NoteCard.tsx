@@ -15,7 +15,7 @@ function stripHtml(html: string): string {
   return div.textContent || "";
 }
 
-function NoteCard({ note, onDelete }: NoteCardProps) {
+function NoteCard({ note, onDelete }: Readonly<NoteCardProps>) {
   async function handleDelete() {
     const confirmed = window.confirm("Delete this note? This can't be undone.");
     if (!confirmed) return;

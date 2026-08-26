@@ -6,7 +6,11 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
 }
 
-function Button({ variant = "primary", children, ...props }: ButtonProps) {
+function Button({
+  variant = "primary",
+  children,
+  ...props
+}: Readonly<ButtonProps>) {
   const styles =
     variant === "primary"
       ? "bg-moss text-white hover:bg-moss-hover"

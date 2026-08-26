@@ -5,7 +5,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
 }
 
-function Input({ label, id, error = "", ...props }: InputProps) {
+function Input({ label, id, error = "", ...props }: Readonly<InputProps>) {
   return (
     <div className="flex flex-col gap-1">
       <label htmlFor={id} className="text-sm font-medium text-graphite">

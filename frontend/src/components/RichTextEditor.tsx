@@ -8,7 +8,35 @@ type RichTextEditorProps = {
   onChange: (html: string) => void;
 };
 
-function RichTextEditor({ content, onChange }: RichTextEditorProps) {
+type ToolbarButtonProps = {
+  active: boolean;
+  onClick: () => void;
+  label: string;
+  children: React.ReactNode;
+};
+
+function ToolbarButton({
+  active,
+  onClick,
+  label,
+  children,
+}: Readonly<ToolbarButtonProps>) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={label}
+      aria-pressed={active}
+      className={`p-2 rounded-md cursor-pointer transition-colors ${
+        active ? "bg-moss text-white" : "text-ink hover:bg-sand"
+      }`}
+    >
+      {children}
+    </button>
+  );
+}
+
+function RichTextEditor({ content, onChange }: Readonly<RichTextEditorProps>) {
   const editor = useEditor({
     extensions: [StarterKit],
     content,
@@ -84,34 +112,6 @@ function RichTextEditor({ content, onChange }: RichTextEditorProps) {
         <EditorContent editor={editor} />
       </div>
     </div>
-  );
-}
-
-type ToolbarButtonProps = {
-  active: boolean;
-  onClick: () => void;
-  label: string;
-  children: React.ReactNode;
-};
-
-function ToolbarButton({
-  active,
-  onClick,
-  label,
-  children,
-}: ToolbarButtonProps) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-label={label}
-      aria-pressed={active}
-      className={`p-2 rounded-md cursor-pointer transition-colors ${
-        active ? "bg-moss text-white" : "text-ink hover:bg-sand"
-      }`}
-    >
-      {children}
-    </button>
   );
 }
 
