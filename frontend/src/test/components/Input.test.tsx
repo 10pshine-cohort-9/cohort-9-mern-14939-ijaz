@@ -14,6 +14,6 @@ describe("Input", () => {
 
   it("does not render error message when error prop is empty", () => {
     render(<Input label="Email" id="email" />);
-    expect(screen.queryByRole("generic", { name: /error/i })).toBeNull();
+    expect(screen.queryByText("Email is required")).toBeNull();
   });
 });
