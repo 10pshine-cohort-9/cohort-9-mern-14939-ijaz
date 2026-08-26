@@ -6,17 +6,18 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
 }
 
+function getButtonStyles(variant: ButtonVariant): string {
+  if (variant === "primary") return "bg-moss text-white hover:bg-moss-hover";
+  if (variant === "ghost") return "text-ink/70 hover:text-clay hover:bg-clay/5";
+  return "bg-sand text-ink hover:bg-neutral-300";
+}
+
 function Button({
   variant = "primary",
   children,
   ...props
 }: Readonly<ButtonProps>) {
-  const styles =
-    variant === "primary"
-      ? "bg-moss text-white hover:bg-moss-hover"
-      : variant === "ghost"
-        ? "text-ink/70 hover:text-clay hover:bg-clay/5"
-        : "bg-sand text-ink hover:bg-neutral-300";
+  const styles = getButtonStyles(variant);
 
   return (
     <button
