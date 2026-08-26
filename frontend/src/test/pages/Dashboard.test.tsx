@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Dashboard from "../../pages/Dashboard";
 
@@ -54,26 +54,20 @@ describe("Dashboard", () => {
       ],
     });
     render(<Dashboard />);
-    await waitFor(() =>
-      expect(screen.getByText("First Note")).toBeInTheDocument(),
-    );
+    expect(await screen.findByText("First Note")).toBeInTheDocument();
     expect(screen.getByText("Second Note")).toBeInTheDocument();
   });
 
   it("renders empty state when no notes", async () => {
     (fetchNotes as jest.Mock).mockResolvedValue({ data: [] });
     render(<Dashboard />);
-    await waitFor(() =>
-      expect(screen.getByText("No notes yet")).toBeInTheDocument(),
-    );
+    expect(await screen.findByText("No notes yet")).toBeInTheDocument();
   });
 
   it("shows error and retry button on fetch failure", async () => {
     (fetchNotes as jest.Mock).mockRejectedValue({ message: "Server error" });
     render(<Dashboard />);
-    await waitFor(() =>
-      expect(screen.getByText("Server error")).toBeInTheDocument(),
-    );
+    expect(await screen.findByText("Server error")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /retry/i })).toBeInTheDocument();
   });
 
@@ -84,17 +78,16 @@ describe("Dashboard", () => {
         data: [{ id: "1", title: "Loaded Note", content: "hi" }],
       });
     render(<Dashboard />);
-    await waitFor(() => screen.getByRole("button", { name: /retry/i }));
-    await userEvent.click(screen.getByRole("button", { name: /retry/i }));
-    await waitFor(() =>
-      expect(screen.getByText("Loaded Note")).toBeInTheDocument(),
+    await userEvent.click(
+      await screen.findByRole("button", { name: /retry/i }),
     );
+    expect(await screen.findByText("Loaded Note")).toBeInTheDocument();
   });
 
   it("renders the avatar initial from username", async () => {
     (fetchNotes as jest.Mock).mockResolvedValue({ data: [] });
     render(<Dashboard />);
-    await waitFor(() => screen.getByText("No notes yet"));
+    await screen.findByText("No notes yet");
     expect(screen.getByText("I")).toBeInTheDocument();
   });
 });

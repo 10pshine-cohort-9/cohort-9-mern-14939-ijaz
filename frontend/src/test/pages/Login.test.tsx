@@ -1,14 +1,9 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Login from "../../pages/Login";
 
 const mockLogin = jest.fn();
 const mockNavigate = jest.fn();
-
-jest.mock("../../api/auth", () => ({
-  getCurrentUser: jest.fn().mockResolvedValue({ data: { user: null } }),
-  logoutUser: jest.fn().mockResolvedValue({}),
-}));
 
 jest.mock("react-router-dom", () => ({
   Link: ({ children, to }: { children: React.ReactNode; to: string }) => (
@@ -44,9 +39,10 @@ describe("Login", () => {
     await userEvent.type(screen.getByLabelText("Email"), "a@b.com");
     await userEvent.type(screen.getByLabelText("Password"), "password123");
     await userEvent.click(screen.getByRole("button", { name: /log in/i }));
-    await waitFor(() =>
-      expect(mockNavigate).toHaveBeenCalledWith("/dashboard"),
-    );
+    expect(
+      (await screen.findByText("Logging in...")) || mockNavigate,
+    ).toBeTruthy();
+    expect(mockNavigate).toHaveBeenCalledWith("/dashboard");
   });
 
   it("shows error message on failed login", async () => {
@@ -57,8 +53,6 @@ describe("Login", () => {
     await userEvent.type(screen.getByLabelText("Email"), "a@b.com");
     await userEvent.type(screen.getByLabelText("Password"), "wrong");
     await userEvent.click(screen.getByRole("button", { name: /log in/i }));
-    await waitFor(() =>
-      expect(screen.getByText("Invalid credentials")).toBeInTheDocument(),
-    );
+    expect(await screen.findByText("Invalid credentials")).toBeInTheDocument();
   });
 });
