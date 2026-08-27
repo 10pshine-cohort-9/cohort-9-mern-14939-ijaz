@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes } from "react";
+import type { ButtonHTMLAttributes, ReactElement } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "ghost";
 
@@ -16,7 +16,7 @@ function Button({
   variant = "primary",
   children,
   ...props
-}: Readonly<ButtonProps>) {
+}: Readonly<ButtonProps>): ReactElement {
   const styles = getButtonStyles(variant);
 
   return (

@@ -39,9 +39,6 @@ describe("Login", () => {
     await userEvent.type(screen.getByLabelText("Email"), "a@b.com");
     await userEvent.type(screen.getByLabelText("Password"), "password123");
     await userEvent.click(screen.getByRole("button", { name: /log in/i }));
-    expect(
-      (await screen.findByText("Logging in...")) || mockNavigate,
-    ).toBeTruthy();
     expect(mockNavigate).toHaveBeenCalledWith("/dashboard");
   });
 

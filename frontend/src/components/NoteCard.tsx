@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
+import type { ReactElement } from "react";
 import { deleteNote, type Note } from "../api/notes";
 import type { ApiError } from "../api/apiError";
 
@@ -15,7 +16,7 @@ function stripHtml(html: string): string {
   return div.textContent || "";
 }
 
-function NoteCard({ note, onDelete }: Readonly<NoteCardProps>) {
+function NoteCard({ note, onDelete }: Readonly<NoteCardProps>): ReactElement {
   async function handleDelete() {
     const confirmed = window.confirm("Delete this note? This can't be undone.");
     if (!confirmed) return;

@@ -4,6 +4,7 @@ import {
   useState,
   useEffect,
   useMemo,
+  type ReactElement,
   type ReactNode,
 } from "react";
 import { getCurrentUser, logoutUser } from "../api/auth";
@@ -23,7 +24,9 @@ type AuthContextType = {
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
-export function AuthProvider({ children }: Readonly<{ children: ReactNode }>) {
+export function AuthProvider({
+  children,
+}: Readonly<{ children: ReactNode }>): ReactElement {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 

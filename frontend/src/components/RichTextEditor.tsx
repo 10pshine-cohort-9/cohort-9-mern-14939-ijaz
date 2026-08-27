@@ -1,6 +1,6 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { useEffect } from "react";
+import { useEffect, type ReactElement, type ReactNode } from "react";
 import { Bold, Italic, List, ListOrdered, Heading2, Quote } from "lucide-react";
 
 type RichTextEditorProps = {
@@ -12,7 +12,7 @@ type ToolbarButtonProps = {
   active: boolean;
   onClick: () => void;
   label: string;
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 function ToolbarButton({
@@ -20,7 +20,7 @@ function ToolbarButton({
   onClick,
   label,
   children,
-}: Readonly<ToolbarButtonProps>) {
+}: Readonly<ToolbarButtonProps>): ReactElement {
   return (
     <button
       type="button"
@@ -36,7 +36,10 @@ function ToolbarButton({
   );
 }
 
-function RichTextEditor({ content, onChange }: Readonly<RichTextEditorProps>) {
+function RichTextEditor({
+  content,
+  onChange,
+}: Readonly<RichTextEditorProps>): ReactElement | null {
   const editor = useEditor({
     extensions: [StarterKit],
     content,

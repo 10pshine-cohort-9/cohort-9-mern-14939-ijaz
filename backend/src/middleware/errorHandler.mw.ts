@@ -62,6 +62,6 @@ export const errorHandlerMiddleware = (
   res.sendResponse(statusCode, {
     success: false,
     error: message,
-    details,
+    details: details ?? null,
   });
 };

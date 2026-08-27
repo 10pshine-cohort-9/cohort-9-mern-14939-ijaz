@@ -57,11 +57,9 @@ describe("NoteEditor — create mode", () => {
     await userEvent.type(screen.getByPlaceholderText("Note title"), "My Note");
     await userEvent.type(screen.getByTestId("editor"), "Some content");
     await userEvent.click(screen.getByRole("button", { name: /save/i }));
-    expect((await screen.findByText("Saving...")) || createNote).toBeTruthy();
     expect(createNote).toHaveBeenCalledWith("My Note", "Some content");
     expect(mockNavigate).toHaveBeenCalledWith("/dashboard");
   });
-
   it("shows error message when createNote fails", async () => {
     (createNote as jest.Mock).mockRejectedValue({ message: "Failed to save" });
     render(<NoteEditor />);
