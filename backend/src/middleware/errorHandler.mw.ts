@@ -24,14 +24,20 @@ export const errorHandlerMiddleware = (
         statusCode = 409;
         message = "A record with this value already exists.";
         details = { field: err.meta?.target };
-        logger.warn({ errorCode: err.code, meta: err.meta }, "Unique constraint violation");
+        logger.warn(
+          { errorCode: err.code, meta: err.meta },
+          "Unique constraint violation",
+        );
         break;
       }
       case "P2025": {
         statusCode = 404;
         message = "The requested record was not found.";
         details = { cause: err.meta?.cause };
-        logger.warn({ errorCode: err.code, meta: err.meta }, "Record not found");
+        logger.warn(
+          { errorCode: err.code, meta: err.meta },
+          "Record not found",
+        );
         break;
       }
       default: {
@@ -56,6 +62,6 @@ export const errorHandlerMiddleware = (
   res.sendResponse(statusCode, {
     success: false,
     error: message,
-    details: details ? details : undefined,
+    details: details ?? null,
   });
 };

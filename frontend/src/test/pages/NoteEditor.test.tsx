@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import NoteEditor from "../../pages/NoteEditor";
 
@@ -57,21 +57,16 @@ describe("NoteEditor — create mode", () => {
     await userEvent.type(screen.getByPlaceholderText("Note title"), "My Note");
     await userEvent.type(screen.getByTestId("editor"), "Some content");
     await userEvent.click(screen.getByRole("button", { name: /save/i }));
-    await waitFor(() =>
-      expect(createNote).toHaveBeenCalledWith("My Note", "Some content"),
-    );
+    expect(createNote).toHaveBeenCalledWith("My Note", "Some content");
     expect(mockNavigate).toHaveBeenCalledWith("/dashboard");
   });
-
   it("shows error message when createNote fails", async () => {
     (createNote as jest.Mock).mockRejectedValue({ message: "Failed to save" });
     render(<NoteEditor />);
     await userEvent.type(screen.getByPlaceholderText("Note title"), "My Note");
     await userEvent.type(screen.getByTestId("editor"), "Some content");
     await userEvent.click(screen.getByRole("button", { name: /save/i }));
-    await waitFor(() =>
-      expect(screen.getByText("Failed to save")).toBeInTheDocument(),
-    );
+    expect(await screen.findByText("Failed to save")).toBeInTheDocument();
   });
 
   it("navigates to dashboard when cancel is clicked", async () => {
@@ -97,9 +92,9 @@ describe("NoteEditor — edit mode", () => {
       data: { id: "1", title: "Existing Note", content: "<p>Old content</p>" },
     });
     render(<NoteEditor />);
-    await waitFor(() =>
-      expect(screen.getByDisplayValue("Existing Note")).toBeInTheDocument(),
-    );
+    expect(
+      await screen.findByDisplayValue("Existing Note"),
+    ).toBeInTheDocument();
   });
 
   it("calls updateNote with correct id and navigates on save", async () => {
@@ -108,14 +103,12 @@ describe("NoteEditor — edit mode", () => {
     });
     (updateNote as jest.Mock).mockResolvedValue({});
     render(<NoteEditor />);
-    await waitFor(() => screen.getByDisplayValue("Existing Note"));
+    await screen.findByDisplayValue("Existing Note");
     await userEvent.click(screen.getByRole("button", { name: /save/i }));
-    await waitFor(() =>
-      expect(updateNote).toHaveBeenCalledWith(
-        "1",
-        "Existing Note",
-        "<p>Old content</p>",
-      ),
+    expect(updateNote).toHaveBeenCalledWith(
+      "1",
+      "Existing Note",
+      "<p>Old content</p>",
     );
     expect(mockNavigate).toHaveBeenCalledWith("/dashboard");
   });
@@ -125,8 +118,6 @@ describe("NoteEditor — edit mode", () => {
       message: "Note not found",
     });
     render(<NoteEditor />);
-    await waitFor(() =>
-      expect(screen.getByText("Note not found")).toBeInTheDocument(),
-    );
+    expect(await screen.findByText("Note not found")).toBeInTheDocument();
   });
 });

@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes } from "react";
+import type { ButtonHTMLAttributes, ReactElement } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "ghost";
 
@@ -6,16 +6,22 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
 }
 
-function Button({ variant = "primary", children, ...props }: ButtonProps) {
-  const styles =
-    variant === "primary"
-      ? "bg-moss text-white hover:bg-moss-hover"
-      : variant === "ghost"
-        ? "text-ink/70 hover:text-clay hover:bg-clay/5"
-        : "bg-sand text-ink hover:bg-neutral-300";
+function getButtonStyles(variant: ButtonVariant): string {
+  if (variant === "primary") return "bg-moss text-white hover:bg-moss-hover";
+  if (variant === "ghost") return "text-ink/70 hover:text-clay hover:bg-clay/5";
+  return "bg-sand text-ink hover:bg-neutral-300";
+}
+
+function Button({
+  variant = "primary",
+  children,
+  ...props
+}: Readonly<ButtonProps>): ReactElement {
+  const styles = getButtonStyles(variant);
 
   return (
     <button
+      type="button"
       className={`px-4 py-2 rounded-md font-medium cursor-pointer transition-colors active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 ${styles}`}
       {...props}
     >

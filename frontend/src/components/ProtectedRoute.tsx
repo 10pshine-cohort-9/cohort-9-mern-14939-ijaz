@@ -2,7 +2,7 @@ import { type ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-function ProtectedRoute({ children }: { children: ReactNode }) {
+function ProtectedRoute({ children }: Readonly<{ children: ReactNode }>) {
   const { user, loading } = useAuth();
 
   if (loading) {

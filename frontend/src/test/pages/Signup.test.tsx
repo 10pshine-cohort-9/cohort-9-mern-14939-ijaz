@@ -1,13 +1,8 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Signup from "../../pages/Signup";
 
 const mockNavigate = jest.fn();
-
-jest.mock("../../api/auth", () => ({
-  getCurrentUser: jest.fn().mockResolvedValue({ data: { user: null } }),
-  logoutUser: jest.fn().mockResolvedValue({}),
-}));
 
 jest.mock("react-router-dom", () => ({
   Link: ({ children, to }: { children: React.ReactNode; to: string }) => (
@@ -39,7 +34,7 @@ describe("Signup", () => {
     await userEvent.type(screen.getByLabelText("Email"), "a@b.com");
     await userEvent.type(screen.getByLabelText("Password"), "password123");
     await userEvent.click(screen.getByRole("button", { name: /sign up/i }));
-    await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith("/login"));
+    expect(mockNavigate).toHaveBeenCalledWith("/login");
   });
 
   it("shows error message on failed signup", async () => {
@@ -51,8 +46,6 @@ describe("Signup", () => {
     await userEvent.type(screen.getByLabelText("Email"), "a@b.com");
     await userEvent.type(screen.getByLabelText("Password"), "password123");
     await userEvent.click(screen.getByRole("button", { name: /sign up/i }));
-    await waitFor(() =>
-      expect(screen.getByText("Email already exists")).toBeInTheDocument(),
-    );
+    expect(await screen.findByText("Email already exists")).toBeInTheDocument();
   });
 });
