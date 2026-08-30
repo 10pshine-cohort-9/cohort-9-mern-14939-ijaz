@@ -44,7 +44,7 @@ A full-stack notes application built for the 10Pearls MERN internship. Users can
 
 ## Project Structure
 
-```
+```text
 note-app/
 ├── backend/     Express API, Prisma schema, Mocha/Chai tests
 └── frontend/    React app, Jest tests
